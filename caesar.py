@@ -13,15 +13,32 @@ strings. The project will teach kids about :
 
 '''
 #### functions :
+'''
+This function carries out the meat of the conversion , it takes the users choice ,message and private key 
+and uses them to carry out the action. 
+
+the great thing about the Caesar cipher is that you can get both the coding and decoding done with one function
+if the key is a positive number  you are encrypting . To decrypt, make the key negative 
+how it works :
+    the function takes  the string and evaluates it character by character ;for each character it takes the following steps 
+    
+    1* check to see if the character is part of the english alphabet using .isalpha()
+    2* if the symbol is ,the string is converted to it's ordinal value and the key is added 
+    3* Next the edge cases are handled ,a and z will go out of scale if they have a key value subtracted or added respectively .
+       This essentially wraps the number back around to the start of the alphabet
+       
+    The ordinal value is then converted back to its new string representation and added to the empty string out 
+    
+    '''
 
 def crypto(choice,code,key):
     if choice == 2:
         key = -key
     out =''
     for symbol in code:
-        if symbol.isalpha():
-            num =ord(symbol)
-            num += key
+        if symbol.isalpha():  # makes sure the character is part of the alphabet 
+            num =ord(symbol)  # Convert the string character to its ordinal version 
+            num += key        # Adds the key value, to the ordinal number 
 
             if symbol.isupper():
                 if num > ord('Z'):
@@ -35,7 +52,7 @@ def crypto(choice,code,key):
                    num += 26
             out +=chr(num)
         else:
-          out += symbol
+          out += symbol # if the character cannot be converted , it is just added to the message  
     return out 
 
 
@@ -62,7 +79,7 @@ elif usrchoice == 2:
    usrcode = input("please enter coded message:")
 elif usrchoice == 3:
     usrcode = input("Code breaker mode-- please enter message :")
-    for i in range(26):
+    for i in range(26):     # this could be a fun little mode , creates a brute force cracking program
         cipher = crypto(usrchoice,usrcode,i)
         print('i #%s: %s:' %(i,cipher))
 else :
